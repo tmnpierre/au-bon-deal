@@ -66,18 +66,27 @@ The "AuBonDeal" database is a crucial component of the "AuBonDeal" e-commerce ap
 
 ## MERISE Acronym
 
-The acronym "MERISE" comes from the field of information systems modeling. It is defined as follows:
+**MERISE** is a structured approach to database and systems design, widely used in the field of information systems development. The acronym "MERISE" stands for "Methodology for the Study and Development of Computer Systems for Business." It is particularly popular in French-speaking countries and is known for its rigorous, systematic approach to database design and management. MERISE is divided into several key stages:
 
-- **MERISE**: Methodology for the Study and Development of Computer Systems for Business.
+- **Conceptual Data Model (CDM)**: This stage involves identifying the key entities and relationships in the system.
+- **Logical Data Model (LDM)**: Translates the CDM into logical structures, like tables and relationships, that can be implemented in a database system.
+- **Physical Data Model (PDM)**: This stage focuses on how the logical structures will be physically implemented in the database, including considerations of performance and storage.
+- **Operational Process Modeling**: Involves defining the processes and operations that the system must support.
+- **Dynamic Modeling**: This part deals with understanding and modeling how data moves and changes over time within the system.
 
-MERISE is a widely used methodology in computer science and database development.
+MERISE's structured approach helps in creating well-organized, efficient databases and systems, making it a valuable methodology for complex information system projects.
 
 ## Roles and Permissions (RBAC)
 
 The "AuBonDeal" database uses a role-based access control (RBAC) model. Two main roles are defined:
 
-- `readOnly`: This role has permission to read data.
-- `writeOnly`: This role has permission to add and update data.
+  - Implemented a robust RBAC system to manage user access and operations.
+  - Defined roles: `admin`, `manager`, `user`.
+  - Defined permissions: `read`, `write`, `update`, `delete`.
+  - Users are assigned roles, and roles are linked to specific permissions to control access to various database operations.
+  - Added tables: `roles`, `permissions`, `role_permissions`, `user_roles`.
+  - Implemented functions for role verification (e.g., `user_has_role`).
+  - Updated row-level security policies to use role-based checks.
 
 ## Installation
 
@@ -153,18 +162,26 @@ La base de données "AuBonDeal" est un composant essentiel de l'application e-co
 
 ## Acronyme MERISE
 
-L'acronyme "MERISE" est un terme qui provient de la modélisation des systèmes d'information. Il est défini comme suit :
+**MERISE** est une approche structurée pour la conception de bases de données et de systèmes, largement utilisée dans le domaine du développement des systèmes d'information. L'acronyme "MERISE" signifie "Méthode d'Étude et de Réalisation Informatique pour les Systèmes d'Entreprise". Particulièrement populaire dans les pays francophones, elle est reconnue pour son approche rigoureuse et systématique de la conception et de la gestion de bases de données. MERISE est divisée en plusieurs étapes clés :
 
-- **MERISE** : Méthode d'Étude et de Réalisation Informatique pour les Systèmes d'Entreprise.
+- **Modèle Conceptuel de Données (MCD)** : Cette étape implique l'identification des entités clés et des relations dans le système.
+- **Modèle Logique de Données (MLD)** : Traduit le MCD en structures logiques, comme des tables et des relations, pouvant être implémentées dans un système de base de données.
+- **Modèle Physique de Données (MPD)** : Cette étape se concentre sur la manière dont les structures logiques seront physiquement implémentées dans la base de données, y compris les considérations de performance et de stockage.
+- **Modélisation des Processus Opérationnels** : Implique la définition des processus et opérations que le système doit supporter.
+- **Modélisation Dynamique** : Cette partie traite de la compréhension et de la modélisation de la manière dont les données se déplacent et changent dans le temps au sein du système.
 
-MERISE est une méthodologie de modélisation des systèmes d'information largement utilisée dans le domaine de l'informatique et du développement de bases de données.
-
+L'approche structurée de MERISE aide à créer des bases de données et des systèmes bien organisés et efficaces, ce qui en fait une méthodologie précieuse pour les projets complexes de systèmes d'information.
 ## Rôles et Permissions (RBAC)
 
 La base de données "AuBonDeal" utilise un modèle de contrôle d'accès basé sur les rôles (RBAC). Deux rôles principaux sont définis :
 
-- `readOnly` : Ce rôle a la permission de lire les données.
-- `writeOnly` : Ce rôle a la permission d'ajouter et de mettre à jour des données.
+- Mise en place d'un système RBAC robuste pour gérer l'accès et les opérations des utilisateurs.
+  - Rôles définis : `admin`, `manager`, `user`.
+  - Permissions définies : `read`, `write`, `update`, `delete`.
+  - Les utilisateurs sont attribués à des rôles, et les rôles sont liés à des permissions spécifiques pour contrôler l'accès aux différentes opérations de la base de données.
+  - Ajout de tables : `roles`, `permissions`, `role_permissions`, `user_roles`.
+  - Implémentation de fonctions pour la vérification des rôles (par exemple, `user_has_role`).
+  - Mise à jour des politiques de sécurité au niveau des lignes pour utiliser des vérifications basées sur les rôles.
 
 ## Installation
 

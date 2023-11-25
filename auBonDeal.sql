@@ -66,6 +66,29 @@ $$;
 
 ALTER FUNCTION public.hash_user_password() OWNER TO tmnpierre;
 
+--
+-- Name: user_has_role(integer, character varying); Type: FUNCTION; Schema: public; Owner: tmnpierre
+--
+
+CREATE FUNCTION public.user_has_role(user_id integer, role_name character varying) RETURNS boolean
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    has_role BOOLEAN;
+BEGIN
+    SELECT EXISTS (
+        SELECT 1 FROM user_roles UR
+        JOIN roles R ON UR.role_id = R.role_id
+        WHERE UR.user_id = user_id AND R.role_name = role_name
+    ) INTO has_role;
+
+    RETURN has_role;
+END;
+$$;
+
+
+ALTER FUNCTION public.user_has_role(user_id integer, role_name character varying) OWNER TO tmnpierre;
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -111,6 +134,40 @@ ALTER SEQUENCE public.orders_orderid_seq OWNED BY public.orders.orderid;
 
 
 --
+-- Name: permissions; Type: TABLE; Schema: public; Owner: tmnpierre
+--
+
+CREATE TABLE public.permissions (
+    permission_id integer NOT NULL,
+    permission_name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.permissions OWNER TO tmnpierre;
+
+--
+-- Name: permissions_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: tmnpierre
+--
+
+CREATE SEQUENCE public.permissions_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.permissions_permission_id_seq OWNER TO tmnpierre;
+
+--
+-- Name: permissions_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tmnpierre
+--
+
+ALTER SEQUENCE public.permissions_permission_id_seq OWNED BY public.permissions.permission_id;
+
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: tmnpierre
 --
 
@@ -150,6 +207,64 @@ ALTER SEQUENCE public.products_productid_seq OWNER TO tmnpierre;
 
 ALTER SEQUENCE public.products_productid_seq OWNED BY public.products.productid;
 
+
+--
+-- Name: role_permissions; Type: TABLE; Schema: public; Owner: tmnpierre
+--
+
+CREATE TABLE public.role_permissions (
+    role_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.role_permissions OWNER TO tmnpierre;
+
+--
+-- Name: roles; Type: TABLE; Schema: public; Owner: tmnpierre
+--
+
+CREATE TABLE public.roles (
+    role_id integer NOT NULL,
+    role_name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.roles OWNER TO tmnpierre;
+
+--
+-- Name: roles_role_id_seq; Type: SEQUENCE; Schema: public; Owner: tmnpierre
+--
+
+CREATE SEQUENCE public.roles_role_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.roles_role_id_seq OWNER TO tmnpierre;
+
+--
+-- Name: roles_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tmnpierre
+--
+
+ALTER SEQUENCE public.roles_role_id_seq OWNED BY public.roles.role_id;
+
+
+--
+-- Name: user_roles; Type: TABLE; Schema: public; Owner: tmnpierre
+--
+
+CREATE TABLE public.user_roles (
+    user_id integer NOT NULL,
+    role_id integer NOT NULL
+);
+
+
+ALTER TABLE public.user_roles OWNER TO tmnpierre;
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: tmnpierre
@@ -197,6 +312,13 @@ ALTER TABLE ONLY public.orders ALTER COLUMN orderid SET DEFAULT nextval('public.
 
 
 --
+-- Name: permissions permission_id; Type: DEFAULT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.permissions ALTER COLUMN permission_id SET DEFAULT nextval('public.permissions_permission_id_seq'::regclass);
+
+
+--
 -- Name: products productid; Type: DEFAULT; Schema: public; Owner: tmnpierre
 --
 
@@ -204,55 +326,17 @@ ALTER TABLE ONLY public.products ALTER COLUMN productid SET DEFAULT nextval('pub
 
 
 --
+-- Name: roles role_id; Type: DEFAULT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.roles ALTER COLUMN role_id SET DEFAULT nextval('public.roles_role_id_seq'::regclass);
+
+
+--
 -- Name: users userid; Type: DEFAULT; Schema: public; Owner: tmnpierre
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN userid SET DEFAULT nextval('public.users_userid_seq'::regclass);
-
-
---
--- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: tmnpierre
---
-
-COPY public.orders (orderid, userid, ordertotalcostht, ordertotalquantity, createdat, deliverat) FROM stdin;
-\.
-
-
---
--- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: tmnpierre
---
-
-COPY public.products (productid, productname, productdescription, productprice, productquantity, createdat, updatedat) FROM stdin;
-\.
-
-
---
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: tmnpierre
---
-
-COPY public.users (userid, username, userpassword, isactive, createdat, updatedat) FROM stdin;
-\.
-
-
---
--- Name: orders_orderid_seq; Type: SEQUENCE SET; Schema: public; Owner: tmnpierre
---
-
-SELECT pg_catalog.setval('public.orders_orderid_seq', 1, false);
-
-
---
--- Name: products_productid_seq; Type: SEQUENCE SET; Schema: public; Owner: tmnpierre
---
-
-SELECT pg_catalog.setval('public.products_productid_seq', 1, false);
-
-
---
--- Name: users_userid_seq; Type: SEQUENCE SET; Schema: public; Owner: tmnpierre
---
-
-SELECT pg_catalog.setval('public.users_userid_seq', 1, false);
 
 
 --
@@ -264,11 +348,59 @@ ALTER TABLE ONLY public.orders
 
 
 --
+-- Name: permissions permissions_permission_name_key; Type: CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.permissions
+    ADD CONSTRAINT permissions_permission_name_key UNIQUE (permission_name);
+
+
+--
+-- Name: permissions permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.permissions
+    ADD CONSTRAINT permissions_pkey PRIMARY KEY (permission_id);
+
+
+--
 -- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: tmnpierre
 --
 
 ALTER TABLE ONLY public.products
     ADD CONSTRAINT products_pkey PRIMARY KEY (productid);
+
+
+--
+-- Name: role_permissions role_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.role_permissions
+    ADD CONSTRAINT role_permissions_pkey PRIMARY KEY (role_id, permission_id);
+
+
+--
+-- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (role_id);
+
+
+--
+-- Name: roles roles_role_name_key; Type: CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_role_name_key UNIQUE (role_name);
+
+
+--
+-- Name: user_roles user_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_pkey PRIMARY KEY (user_id, role_id);
 
 
 --
@@ -303,6 +435,38 @@ ALTER TABLE ONLY public.orders
 
 
 --
+-- Name: role_permissions role_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.role_permissions
+    ADD CONSTRAINT role_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES public.permissions(permission_id);
+
+
+--
+-- Name: role_permissions role_permissions_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.role_permissions
+    ADD CONSTRAINT role_permissions_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.roles(role_id);
+
+
+--
+-- Name: user_roles user_roles_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.roles(role_id);
+
+
+--
+-- Name: user_roles user_roles_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(userid);
+
+
+--
 -- Name: orders; Type: ROW SECURITY; Schema: public; Owner: tmnpierre
 --
 
@@ -312,7 +476,7 @@ ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
 -- Name: orders user_access; Type: POLICY; Schema: public; Owner: tmnpierre
 --
 
-CREATE POLICY user_access ON public.orders USING ((userid = public.get_current_user_id())) WITH CHECK ((userid = public.get_current_user_id()));
+CREATE POLICY user_access ON public.orders FOR SELECT USING ((public.user_has_role(public.get_current_user_id(), 'admin'::character varying) OR (userid = public.get_current_user_id())));
 
 
 --
