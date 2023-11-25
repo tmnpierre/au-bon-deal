@@ -1,8 +1,8 @@
-![SQL Badge](https://img.shields.io/badge/-SQL-000?&logo=MySQL)
-![PostgreSQL Badge](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgresql)
-![GitHub CLI Badge](https://img.shields.io/badge/-GitHub_CLI-181717?style=flat-square&logo=github)
-![Lazygit Badge](https://img.shields.io/badge/-Lazygit-FCC624?style=flat-square&logo=git)
-![Gitflow Badge](https://img.shields.io/badge/-Gitflow-000000?style=flat-square&logo=git)
+![SQL](https://img.shields.io/badge/SQL-%23000.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-%23336791.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![GitHub CLI](https://img.shields.io/badge/GitHub%20CLI-%23181717.svg?style=for-the-badge&logo=github&logoColor=white)
+![Lazygit](https://img.shields.io/badge/Lazygit-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+![Gitflow](https://img.shields.io/badge/Gitflow-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
 # Documentation de la Base de Données "AuBonDeal"
 
