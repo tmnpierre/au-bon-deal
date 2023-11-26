@@ -8,57 +8,50 @@
   <img src="images/logo.png" alt="AuBonDeal Logo" width="200">
 </p>
 
-# Table des Matières
+# Table of Contents
 
-- [English Documentation](#english-documentation)
-  - [Introduction](#introduction)
-  - [Management Rules](#management-rules)
-    - [User Management](#user-management)
-    - [Product Management](#product-management)
-    - [Order Management](#order-management)
-  - [MERISE Acronym](#merise-acronym)
-  - [Physical Data Model (PDM)](#physical-data-model-pdm)
-  - [Roles and Permissions (RBAC)](#roles-and-permissions-rbac)
-  - [Installation](#installation)
-    - [Prerequisites](#prerequisites)
-    - [Installation Steps](#installation-steps)
-  - [Configuration](#configuration)
-    - [Row-Level Security (RLS)](#row-level-security-rls)
-  - [Usage](#usage)
-    - [Data Access](#data-access)
-    - [Password Security](#password-security)
-  - [Conclusion](#conclusion)
-- [Documentation en Français](#Documentation-de-la-Base-de-Données-"AuBonDeal")
-  - [Introduction](#introduction-1)
-  - [Règles de Gestion](#règles-de-gestion)
-    - [Gestion des Utilisateurs](#gestion-des-utilisateurs)
-    - [Gestion des Produits](#gestion-des-produits)
-    - [Gestion des Commandes](#gestion-des-commandes)
-  - [Acronyme MERISE](#acronyme-merise)
-  - [Modèle Physique des Données (MPD)](#modèle-physique-des-données-mpd)
-  - [Rôles et Permissions (RBAC)](#rôles-et-permissions-rbac)
-  - [Installation](#installation-1)
-    - [Prérequis](#prérequis)
-    - [Étapes d'Installation](#étapes-dinstallation)
-  - [Configuration](#configuration-1)
-    - [Sécurité au Niveau des Lignes (RLS)](#sécurité-au-niveau-des-lignes-rls)
-  - [Utilisation](#utilisation)
-    - [Accès aux Données](#accès-aux-données)
-    - [Sécurité des Mots de Passe](#sécurité-des-mots-de-passe)
-  - [Conclusion](#conclusion-1)
+1. [Introduction](#introduction)
+2. [Management Rules](#management-rules)
+   - 2.1. [User Management](#user-management)
+   - 2.2. [Product Management](#product-management)
+   - 2.3. [Order Management](#order-management)
+3. [MERISE Acronym](#merise-acronym)
+4. [Physical Data Model (PDM)](#physical-data-model-pdm)
+   - 4.1. [Table: `users`](#table--users)
+   - 4.2. [Table: `products`](#table--products)
+   - 4.3. [Table: `orders`](#table--orders)
+   - 4.4. [Table: `order_items`](#table--order_items)
+5. [Roles and Permissions (RBAC)](#roles-and-permissions-rbac)
+6. [Audits and Activity Logs](#audits-and-activity-logs)
+7. [Installation](#installation)
+   - 7.1. [Prerequisites](#prerequisites)
+   - 7.2. [Installation Steps](#installation-steps)
+8. [Configuration](#configuration)
+   - 8.1. [Row-Level Security (RLS)](#row-level-security-rls)
+9. [Usage](#usage)
+10. [Conclusion](#conclusion)
+11. [Introduction](#introduction)
+12. [Règles de Gestion](#règles-de-gestion)
+   - 12.1. [Gestion des Utilisateurs](#gestion-des-utilisateurs)
+   - 12.2. [Gestion des Produits](#gestion-des-produits)
+   - 12.3. [Gestion des Commandes](#gestion-des-commandes)
+13. [Acronyme MERISE](#acronyme-merise)
+14. [Modèle Physique des Données (MPD)](#modèle-physique-des-données-mpd)
+   - 14.1. [Table : `users`](#table--users)
+   - 14.2. [Table : `products`](#table--products)
+   - 14.3. [Table : `orders`](#table--orders)
+   - 14.4. [Table : `order_items`](#table--order_items)
+15. [Rôles et Permissions (RBAC)](#rôles-et-permissions-rbac)
+16. [Audits et Logs d'Activité](#audits-et-logs-dactivité)
+17. [Installation](#installation)
+   - 17.1. [Prérequis](#prérequis)
+   - 17.2. [Étapes d'Installation](#étapes-dinstallation)
+18. [Configuration](#configuration)
+   - 18.1. [Sécurité au Niveau des Lignes (RLS)](#sécurité-au-niveau-des-lignes-rls)
+19. [Utilisation](#utilisation)
+20. [Conclusion](#conclusion)
 
 # "AuBonDeal" Database Documentation
-
-## Recent Changes
-
-### Data Validation
-Validation constraints have been added to ensure data integrity in the `users`, `products`, and `orders` tables. This includes verifying email address formats and ensuring that product prices and quantities are never negative.
-
-### Indexing
-Indexes have been created on frequently used columns to improve query performance, such as `username` in the `users` table and `created_at` in the `orders` table.
-
-### User Deletion Management
-Orders are not deleted when users are removed. The relationship between the `users` and `orders` tables has been adjusted to reflect this policy.
 
 ## Introduction
 
@@ -70,15 +63,18 @@ Orders are not deleted when users are removed. The relationship between the `use
 - Each user has a unique UUID.
 - User passwords are stored securely using cryptographic functions.
 - Users have a unique username and a pseudo.
+- **User Deletion Management**: Orders are not deleted when users are removed. The relationship between the `users` and `orders` tables has been adjusted to reflect this policy.
 
 ### Product Management
 - Each product has a unique UUID.
 - The price and quantity of a product must be positive.
+- **Data Validation**: Validation constraints have been added to ensure data integrity. This includes verifying email address formats and ensuring that product prices and quantities are never negative.
 
 ### Order Management
 - Each order has a unique UUID and is associated with a user UUID.
 - Orders contain total cost and quantity, which must be positive.
 - Orders have timestamps for creation and delivery.
+- **Data Validation**: Similar to products, validation constraints ensure the integrity of order data.
 
 ## MERISE Acronym
 
@@ -92,6 +88,7 @@ Orders are not deleted when users are removed. The relationship between the `use
 - `username`: VARCHAR(255), unique username.
 - `user_password`: TEXT, encrypted password.
 - `created_at`: TIMESTAMP, account creation date and time.
+- **Indexing**: Indexes have been created on columns like `username` to improve query performance.
 
 ### Table: `products`
 - `product_uuid`: UUID, primary key, unique identifier for the product.
@@ -109,6 +106,7 @@ Orders are not deleted when users are removed. The relationship between the `use
 - `created_at`: TIMESTAMP, order creation date.
 - `deliver_at`: TIMESTAMP, expected delivery date and time.
 - `user_uuid`: UUID, foreign key referencing `users(user_uuid)`.
+- **Indexing**: Indexes on columns such as `created_at` have been created to improve query performance.
 
 ### Table: `order_items`
 - `order_item_uuid`: UUID, primary key, unique identifier for the order item.
@@ -122,12 +120,22 @@ Orders are not deleted when users are removed. The relationship between the `use
 
 - `admin_role`: Has all privileges on all tables, sequences, and functions.
 - `user_role`: Has SELECT, INSERT, UPDATE, and DELETE privileges on specific tables.
+- **More Precise Roles**: Specific roles such as `product_manager`, `order_manager`, and `user_manager` have been introduced for finer management of access and operations.
+- **Specific Privileges**: Adapted privileges have been granted to each role to ensure precise and secure access control.
+- **Securing Sensitive Functions**: Critical functions like `hash_user_password()` and `user_has_role()` are now restricted to authorized roles to enhance security.
 - Row-Level Security (RLS) policies are in place to ensure users access only their data.
+
+## Audits and Activity Logs
+
+- An `audit_logs` table has been implemented to record important actions, thus improving traceability and security.
+- Triggers like `log_order_inserts` have been added to automatically log certain operations in the audit table.
 
 ## Installation
 
 ### Prerequisites
-Ensure the following are installed:
+Ensure the following are
+
+ installed:
 - PostgreSQL.
 - `pgcrypto` and `uuid-ossp` extensions enabled in PostgreSQL.
 
@@ -153,17 +161,6 @@ The "AuBonDeal" database is set up for the associated e-commerce application. Fo
 
 # Documentation de la Base de Données "AuBonDeal"
 
-## Changements Récents
-
-### Validation des Données
-Des contraintes de validation ont été ajoutées pour assurer l'intégrité des données dans les tables `users`, `products` et `orders`. Cela comprend la vérification des formats d'adresses e-mail et l'assurance que les prix et quantités des produits ne sont jamais négatifs.
-
-### Indexation
-Des index ont été créés sur des colonnes fréquemment utilisées pour améliorer les performances des requêtes, comme `username` dans la table `users` et `created_at` dans la table `orders`.
-
-### Gestion des Suppressions d'Utilisateurs
-Les commandes ne sont pas supprimées lorsque les utilisateurs sont supprimés. La relation entre les tables `users` et `orders` a été ajustée pour refléter cette politique.
-
 ## Introduction
 
 La base de données "AuBonDeal" est un composant essentiel de l'application e-commerce "AuBonDeal". Cette base de données stocke toutes les informations nécessaires au fonctionnement de l'application, y compris les données des utilisateurs, des produits et des commandes. Cette documentation vous guidera à travers l'installation, la configuration et l'utilisation de cette base de données.
@@ -174,15 +171,18 @@ La base de données "AuBonDeal" est un composant essentiel de l'application e-co
 - Chaque utilisateur possède un UUID unique.
 - Les mots de passe des utilisateurs sont stockés de manière sécurisée à l'aide de fonctions cryptographiques.
 - Les utilisateurs ont un nom d'utilisateur unique et un pseudo.
+- **Gestion des Suppressions d'Utilisateurs** : Les commandes ne sont pas supprimées lorsque les utilisateurs sont supprimés. La relation entre les tables `users` et `orders` a été ajustée pour refléter cette politique.
 
 ### Gestion des Produits
 - Chaque produit possède un UUID unique.
 - Le prix et la quantité d'un produit doivent être positifs.
+- **Validation des Données** : Des contraintes de validation ont été ajoutées pour assurer l'intégrité des données dans les tables `users`, `products` et `orders`. Cela comprend la vérification des formats d'adresses e-mail et l'assurance que les prix et quantités des produits ne sont jamais négatifs.
 
 ### Gestion des Commandes
 - Chaque commande possède un UUID unique et est associée à un UUID utilisateur.
 - Les commandes contiennent le coût total et la quantité, qui doivent être positifs.
 - Les commandes ont des horodatages de création et de livraison.
+- **Validation des Données** : Semblable aux produits, des contraintes de validation garantissent l'intégrité des données des commandes.
 
 ## Acronyme MERISE
 
@@ -196,6 +196,7 @@ La base de données "AuBonDeal" est un composant essentiel de l'application e-co
 - `username` : VARCHAR(255), nom d'utilisateur unique.
 - `user_password` : TEXT, mot de passe crypté.
 - `created_at` : TIMESTAMP, date et heure de création du compte.
+- **Indexation** : Des index ont été créés sur des colonnes comme `username` pour améliorer les performances des requêtes.
 
 ### Table : `products`
 - `product_uuid` : UUID, clé primaire, identifiant unique du produit.
@@ -213,6 +214,9 @@ La base de données "AuBonDeal" est un composant essentiel de l'application e-co
 - `created_at` : TIMESTAMP, date de création de la commande.
 - `deliver_at` : TIMESTAMP, date et heure de livraison prévues.
 - `user_uuid` : UUID, clé étrangère référençant `users(user_uuid)`.
+- **Indexation** : Des index sur des colonnes
+
+ telles que `created_at` ont été créés pour améliorer les performances des requêtes.
 
 ### Table : `order_items`
 - `order_item_uuid` : UUID, clé primaire, identifiant unique de l'élément de commande.
@@ -226,9 +230,15 @@ La base de données "AuBonDeal" emploie un système de Contrôle d'Accès Basé 
 
 - `admin_role` : Dispose de tous les privilèges sur toutes les tables, séquences et fonctions.
 - `user_role` : Dispose des privilèges SELECT, INSERT, UPDATE et DELETE sur certaines tables.
-- Des politiques de Sécurité au Niveau des Lignes (RLS) sont en place pour garantir que les utilisateurs accè
+- **Rôles Plus Précis** : Des rôles spécifiques tels que `product_manager`, `order_manager`, et `user_manager` ont été introduits pour une gestion plus fine des accès et des opérations.
+- **Privilèges Spécifiques** : Des privilèges adaptés ont été attribués à chaque rôle pour assurer un contrôle d'accès précis et sécurisé.
+- **Sécurisation des Fonctions Sensibles** : Les fonctions critiques telles que `hash_user_password()` et `user_has_role()` sont désormais limitées aux rôles autorisés pour renforcer la sécurité.
+- Des politiques de Sécurité au Niveau des Lignes (RLS) sont en place pour garantir que les utilisateurs n'accèdent qu'à leurs propres données.
 
-dent uniquement à leurs propres données.
+## Audits et Logs d'Activité
+
+- Une table `audit_logs` a été mise en place pour enregistrer les actions importantes, améliorant ainsi la traçabilité et la sécurité.
+- Des triggers comme `log_order_inserts` ont été ajoutés pour automatiquement enregistrer certaines opérations dans la table d'audit.
 
 ## Installation
 

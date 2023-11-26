@@ -94,6 +94,23 @@ $$;
 ALTER FUNCTION public.hash_user_password() OWNER TO tmnpierre;
 
 --
+-- Name: log_order_inserts(); Type: FUNCTION; Schema: public; Owner: tmnpierre
+--
+
+CREATE FUNCTION public.log_order_inserts() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    INSERT INTO audit_logs (action_type, performed_by, details)
+    VALUES ('INSERT', current_user, 'Insert into orders');
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.log_order_inserts() OWNER TO tmnpierre;
+
+--
 -- Name: user_has_role(integer, character varying); Type: FUNCTION; Schema: public; Owner: tmnpierre
 --
 
@@ -119,6 +136,43 @@ ALTER FUNCTION public.user_has_role(user_id integer, role_name character varying
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- Name: audit_logs; Type: TABLE; Schema: public; Owner: tmnpierre
+--
+
+CREATE TABLE public.audit_logs (
+    log_id integer NOT NULL,
+    action_type character varying(255),
+    performed_by character varying(255),
+    performed_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    details text
+);
+
+
+ALTER TABLE public.audit_logs OWNER TO tmnpierre;
+
+--
+-- Name: audit_logs_log_id_seq; Type: SEQUENCE; Schema: public; Owner: tmnpierre
+--
+
+CREATE SEQUENCE public.audit_logs_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.audit_logs_log_id_seq OWNER TO tmnpierre;
+
+--
+-- Name: audit_logs_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tmnpierre
+--
+
+ALTER SEQUENCE public.audit_logs_log_id_seq OWNED BY public.audit_logs.log_id;
+
 
 --
 -- Name: order_items; Type: TABLE; Schema: public; Owner: tmnpierre
@@ -190,6 +244,21 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO tmnpierre;
 
 --
+-- Name: audit_logs log_id; Type: DEFAULT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.audit_logs ALTER COLUMN log_id SET DEFAULT nextval('public.audit_logs_log_id_seq'::regclass);
+
+
+--
+-- Data for Name: audit_logs; Type: TABLE DATA; Schema: public; Owner: tmnpierre
+--
+
+COPY public.audit_logs (log_id, action_type, performed_by, performed_at, details) FROM stdin;
+\.
+
+
+--
 -- Data for Name: order_items; Type: TABLE DATA; Schema: public; Owner: tmnpierre
 --
 
@@ -219,6 +288,21 @@ COPY public.products (product_uuid, product_name, product_description, product_p
 
 COPY public.users (user_uuid, user_pseudo, username, user_password, created_at) FROM stdin;
 \.
+
+
+--
+-- Name: audit_logs_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tmnpierre
+--
+
+SELECT pg_catalog.setval('public.audit_logs_log_id_seq', 1, false);
+
+
+--
+-- Name: audit_logs audit_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE ONLY public.audit_logs
+    ADD CONSTRAINT audit_logs_pkey PRIMARY KEY (log_id);
 
 
 --
@@ -283,6 +367,13 @@ CREATE TRIGGER trigger_hash_user_password BEFORE INSERT OR UPDATE ON public.user
 
 
 --
+-- Name: orders trigger_order_inserts; Type: TRIGGER; Schema: public; Owner: tmnpierre
+--
+
+CREATE TRIGGER trigger_order_inserts AFTER INSERT ON public.orders FOR EACH ROW EXECUTE FUNCTION public.log_order_inserts();
+
+
+--
 -- Name: order_items order_items_order_number_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tmnpierre
 --
 
@@ -320,6 +411,12 @@ CREATE POLICY all_view_products ON public.products FOR SELECT USING (true);
 ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
 
 --
+-- Name: products; Type: ROW SECURITY; Schema: public; Owner: tmnpierre
+--
+
+ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
+
+--
 -- Name: orders user_modify_own_orders; Type: POLICY; Schema: public; Owner: tmnpierre
 --
 
@@ -331,6 +428,13 @@ CREATE POLICY user_modify_own_orders ON public.orders USING ((user_uuid = public
 --
 
 CREATE POLICY user_view_own_orders ON public.orders FOR SELECT USING ((user_uuid = public.current_user_uuid()));
+
+
+--
+-- Name: products view_products; Type: POLICY; Schema: public; Owner: tmnpierre
+--
+
+CREATE POLICY view_products ON public.products FOR SELECT USING ((CURRENT_USER = 'product_manager'::name));
 
 
 --
@@ -351,6 +455,7 @@ GRANT ALL ON FUNCTION public.get_current_user_id() TO admin_role;
 -- Name: FUNCTION hash_user_password(); Type: ACL; Schema: public; Owner: tmnpierre
 --
 
+REVOKE ALL ON FUNCTION public.hash_user_password() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.hash_user_password() TO admin_role;
 
 
@@ -358,6 +463,7 @@ GRANT ALL ON FUNCTION public.hash_user_password() TO admin_role;
 -- Name: FUNCTION user_has_role(user_id integer, role_name character varying); Type: ACL; Schema: public; Owner: tmnpierre
 --
 
+REVOKE ALL ON FUNCTION public.user_has_role(user_id integer, role_name character varying) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.user_has_role(user_id integer, role_name character varying) TO admin_role;
 
 
@@ -375,6 +481,7 @@ GRANT ALL ON TABLE public.order_items TO admin_role;
 
 GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.orders TO user_role;
 GRANT ALL ON TABLE public.orders TO admin_role;
+GRANT SELECT,INSERT,UPDATE ON TABLE public.orders TO order_manager;
 
 
 --
@@ -383,6 +490,7 @@ GRANT ALL ON TABLE public.orders TO admin_role;
 
 GRANT SELECT ON TABLE public.products TO user_role;
 GRANT ALL ON TABLE public.products TO admin_role;
+GRANT SELECT,INSERT,UPDATE ON TABLE public.products TO product_manager;
 
 
 --
@@ -391,6 +499,7 @@ GRANT ALL ON TABLE public.products TO admin_role;
 
 GRANT SELECT ON TABLE public.users TO user_role;
 GRANT ALL ON TABLE public.users TO admin_role;
+GRANT SELECT,INSERT,UPDATE ON TABLE public.users TO user_manager;
 
 
 --
