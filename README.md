@@ -11,6 +11,7 @@
 # Table des Matières
 
 - [English Documentation](#english-documentation)
+- [Recent Changes](#recent-changes)
   - [Introduction](#introduction)
   - [Management Rules](#management-rules)
     - [User Management](#user-management)
@@ -28,7 +29,8 @@
     - [Data Access](#data-access)
     - [Password Security](#password-security)
   - [Conclusion](#conclusion)
-- [Documentation en Français](#Documentation-de-la-Base-de-Données-"AuBonDeal")
+- [Documentation en Français](#documentation-de-la-base-de-données-"AuBonDeal")
+- [Changements Récents](#changements-récents)
   - [Introduction](#introduction-1)
   - [Règles de Gestion](#règles-de-gestion)
     - [Gestion des Utilisateurs](#gestion-des-utilisateurs)
@@ -49,7 +51,7 @@
 
 # "AuBonDeal" Database Documentation
 
-## Recent Changes
+# Recent Changes
 
 ### Data Validation
 Validation constraints have been added to ensure data integrity in the `users`, `products`, and `orders` tables. This includes verifying email address formats and ensuring that product prices and quantities are never negative.
@@ -59,6 +61,39 @@ Indexes have been created on frequently used columns to improve query performanc
 
 ### User Deletion Management
 Orders are not deleted when users are removed. The relationship between the `users` and `orders` tables has been adjusted to reflect this policy.
+
+### Roles and Permissions (RBAC)
+- **More Precise Roles**: Specific roles such as `product_manager`, `order_manager`, and `user_manager` have been introduced for finer management of access and operations.
+- **Specific Privileges**: Adapted privileges have been granted to each role to ensure precise and secure access control.
+- **Securing Sensitive Functions**: Critical functions like `hash_user_password()` and `user_has_role()` are now restricted to authorized roles to enhance security.
+
+### Audits and Activity Logs
+- An `audit_logs` table has been implemented to record important actions, thus improving traceability and security.
+- Triggers like `log_order_inserts` have been added to automatically log certain operations in the audit table.
+
+### Data Validation and Indexing
+- **Validation Constraints**: Constraints have been added to ensure data integrity in the `users`, `products`, and `orders` tables.
+- **Indexing**: Indexes on columns such as `username` in `users` and `created_at` in `orders` have been created to improve query performance.
+
+### User Deletion Management
+- Orders are no longer deleted when corresponding users are removed, thanks to the adjustment of foreign keys and deletion policies.
+
+## Roles and Permissions (RBAC) in Detail
+
+### Defined Roles
+- `product_manager`: Manages operations related to products.
+- `order_manager`: Manages customer orders.
+- `user_manager`: Manages user information.
+
+### Granted Privileges
+- `product_manager`: SELECT, INSERT, UPDATE on `products`.
+- `order_manager`: SELECT, INSERT, UPDATE on `orders`.
+- `user_manager`: SELECT, INSERT, UPDATE on `users`.
+
+### Audits and Logs
+- **Audit Table**: Records types of actions, users who performed them, and additional details.
+- **Triggers**: Automate the logging of actions in the audit table.
+
 
 ## Introduction
 
@@ -153,7 +188,7 @@ The "AuBonDeal" database is set up for the associated e-commerce application. Fo
 
 # Documentation de la Base de Données "AuBonDeal"
 
-## Changements Récents
+# Changements Récents
 
 ### Validation des Données
 Des contraintes de validation ont été ajoutées pour assurer l'intégrité des données dans les tables `users`, `products` et `orders`. Cela comprend la vérification des formats d'adresses e-mail et l'assurance que les prix et quantités des produits ne sont jamais négatifs.
@@ -163,6 +198,38 @@ Des index ont été créés sur des colonnes fréquemment utilisées pour améli
 
 ### Gestion des Suppressions d'Utilisateurs
 Les commandes ne sont pas supprimées lorsque les utilisateurs sont supprimés. La relation entre les tables `users` et `orders` a été ajustée pour refléter cette politique.
+
+### Rôles et Permissions (RBAC)
+- **Rôles Plus Précis** : Des rôles spécifiques tels que `product_manager`, `order_manager`, et `user_manager` ont été introduits pour une gestion plus fine des accès et des opérations.
+- **Privilèges Spécifiques** : Des privilèges adaptés ont été attribués à chaque rôle pour assurer un contrôle d'accès précis et sécurisé.
+- **Sécurisation des Fonctions Sensibles** : Les fonctions critiques telles que `hash_user_password()` et `user_has_role()` sont désormais limitées aux rôles autorisés pour renforcer la sécurité.
+
+### Audits et Logs d'Activité
+- Une table `audit_logs` a été mise en place pour enregistrer les actions importantes, améliorant ainsi la traçabilité et la sécurité.
+- Des triggers comme `log_order_inserts` ont été ajoutés pour automatiquement enregistrer certaines opérations dans la table d'audit.
+
+### Validation des Données et Indexation
+- **Contraintes de Validation** : Des contraintes ont été ajoutées pour garantir l'intégrité des données dans les tables `users`, `products`, et `orders`.
+- **Indexation** : Des index sur des colonnes telles que `username` dans `users` et `created_at` dans `orders` ont été créés pour améliorer les performances des requêtes.
+
+### Gestion des Suppressions d'Utilisateurs
+- Les commandes ne sont plus supprimées lorsque les utilisateurs correspondants sont supprimés, grâce à l'ajustement des clés étrangères et des politiques de suppression.
+
+## Rôles et Permissions (RBAC) en Détail
+
+### Rôles Définis
+- `product_manager` : Gère les opérations liées aux produits.
+- `order_manager` : Gère les commandes des clients.
+- `user_manager` : Gère les informations des utilisateurs.
+
+### Privilèges Attribués
+- `product_manager` : SELECT, INSERT, UPDATE sur `products`.
+- `order_manager` : SELECT, INSERT, UPDATE sur `orders`.
+- `user_manager` : SELECT, INSERT, UPDATE sur `users`.
+
+### Audits et Logs
+- **Table d'Audit** : Enregistre les types d'actions, les utilisateurs les ayant effectuées, et des détails supplémentaires.
+- **Triggers** : Automatisent l'enregistrement des actions dans la table d'audit.
 
 ## Introduction
 
