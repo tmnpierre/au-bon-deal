@@ -3,7 +3,11 @@
 ![GitHub CLI](https://img.shields.io/badge/GitHub%20CLI-%23181717.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Lazygit](https://img.shields.io/badge/Lazygit-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![Gitflow](https://img.shields.io/badge/Gitflow-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-
+\
+<p align="center">
+  <img src="images/logo.png" alt="AuBonDeal Logo">
+</p>
+\
 # Table des Matières
 
 - [English Documentation](#english-documentation)
