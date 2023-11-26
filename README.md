@@ -76,6 +76,33 @@ The "AuBonDeal" database is a crucial component of the "AuBonDeal" e-commerce ap
 
 MERISE's structured approach helps in creating well-organized, efficient databases and systems, making it a valuable methodology for complex information system projects.
 
+## Physical Data Model (PDM)
+
+### Table: `users`
+- `userid`: Primary key, INTEGER, unique identifier for the user.
+- `username`: VARCHAR(255), unique username.
+- `userpassword`: TEXT, user's password encrypted.
+- `isactive`: BOOLEAN, indicates whether the user account is active.
+- `createdat`: TIMESTAMP, the date and time the user account was created.
+- `updatedat`: TIMESTAMP, the date and time the user account was last updated.
+
+### Table: `products`
+- `productid`: Primary key, INTEGER, unique identifier for the product.
+- `productname`: VARCHAR(255), name of the product.
+- `productdescription`: TEXT, detailed description of the product.
+- `productprice`: NUMERIC(10,2), price of the product, must be positive.
+- `productquantity`: INTEGER, stock quantity of the product, must not be negative.
+- `createdat`: TIMESTAMP, date and time the product was registered.
+- `updatedat`: TIMESTAMP, date and time the product was last updated.
+
+### Table: `orders`
+- `orderid`: Primary key, INTEGER, unique identifier for the order.
+- `userid`: INTEGER, foreign key referencing `users(userid)`.
+- `ordertotalcostht`: NUMERIC(10,2), total cost before taxes of the order, must be positive.
+- `ordertotalquantity`: INTEGER, total quantity of products in the order, must be positive.
+- `createdat`: TIMESTAMP, the date and time the order was created.
+- `deliverat`: TIMESTAMP, the expected delivery date and time for the order.
+
 ## Roles and Permissions (RBAC)
 
 The "AuBonDeal" database uses a role-based access control (RBAC) model. Two main roles are defined:
@@ -171,6 +198,34 @@ La base de données "AuBonDeal" est un composant essentiel de l'application e-co
 - **Modélisation Dynamique** : Cette partie traite de la compréhension et de la modélisation de la manière dont les données se déplacent et changent dans le temps au sein du système.
 
 L'approche structurée de MERISE aide à créer des bases de données et des systèmes bien organisés et efficaces, ce qui en fait une méthodologie précieuse pour les projets complexes de systèmes d'information.
+
+## Modèle Physique des Données (MPD)
+
+### Table : `users`
+- `userid` : Clé primaire, INTEGER, identifiant unique de l'utilisateur.
+- `username` : VARCHAR(255), nom d'utilisateur unique.
+- `userpassword` : TEXT, mot de passe de l'utilisateur crypté.
+- `isactive` : BOOLEAN, indique si le compte utilisateur est actif.
+- `createdat` : TIMESTAMP, date et heure de création du compte utilisateur.
+- `updatedat` : TIMESTAMP, date et heure de la dernière mise à jour du compte utilisateur.
+
+### Table : `products`
+- `productid` : Clé primaire, INTEGER, identifiant unique du produit.
+- `productname` : VARCHAR(255), nom du produit.
+- `productdescription` : TEXT, description du produit.
+- `productprice` : NUMERIC(10,2), prix du produit, doit être positif.
+- `productquantity` : INTEGER, quantité du produit en stock, ne doit pas être négative.
+- `createdat` : TIMESTAMP, date et heure de l'enregistrement du produit.
+- `updatedat` : TIMESTAMP, date et heure de la dernière mise à jour du produit.
+
+### Table : `orders`
+- `orderid` : Clé primaire, INTEGER, identifiant unique de la commande.
+- `userid` : INTEGER, clé étrangère faisant référence à `users(userid)`.
+- `ordertotalcostht` : NUMERIC(10,2), coût total hors taxes de la commande, doit être positif.
+- `ordertotalquantity` : INTEGER, quantité totale de produits dans la commande, doit être positive.
+- `createdat` : TIMESTAMP, date et heure de création de la commande.
+- `deliverat` : TIMESTAMP, date et heure prévue pour la livraison de la commande.
+
 ## Rôles et Permissions (RBAC)
 
 La base de données "AuBonDeal" utilise un modèle de contrôle d'accès basé sur les rôles (RBAC). Deux rôles principaux sont définis :
