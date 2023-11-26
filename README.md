@@ -49,6 +49,17 @@
 
 # "AuBonDeal" Database Documentation
 
+## Recent Changes
+
+### Data Validation
+Validation constraints have been added to ensure data integrity in the `users`, `products`, and `orders` tables. This includes verifying email address formats and ensuring that product prices and quantities are never negative.
+
+### Indexing
+Indexes have been created on frequently used columns to improve query performance, such as `username` in the `users` table and `created_at` in the `orders` table.
+
+### User Deletion Management
+Orders are not deleted when users are removed. The relationship between the `users` and `orders` tables has been adjusted to reflect this policy.
+
 ## Introduction
 
 The "AuBonDeal" database is a crucial component of the "AuBonDeal" e-commerce application. This database stores all the necessary information for the application's operation, including user data, product data, and order data. This documentation will guide you through the installation, configuration, and use of this database.
@@ -171,6 +182,17 @@ User passwords are secured using hash functions to ensure confidentiality.
 The "AuBonDeal" database is ready for use with the eponymous e-commerce application. Follow the installation and configuration steps to prepare your environment. You can now start managing users, products, and orders securely.
 
 # Documentation de la Base de Données "AuBonDeal"
+
+## Changements Récents
+
+### Validation des Données
+Des contraintes de validation ont été ajoutées pour assurer l'intégrité des données dans les tables `users`, `products` et `orders`. Cela comprend la vérification des formats d'adresses e-mail et l'assurance que les prix et quantités des produits ne sont jamais négatifs.
+
+### Indexation
+Des index ont été créés sur des colonnes fréquemment utilisées pour améliorer les performances des requêtes, comme `username` dans la table `users` et `created_at` dans la table `orders`.
+
+### Gestion des Suppressions d'Utilisateurs
+Les commandes ne sont pas supprimées lorsque les utilisateurs sont supprimés. La relation entre les tables `users` et `orders` a été ajustée pour refléter cette politique.
 
 ## Introduction
 
