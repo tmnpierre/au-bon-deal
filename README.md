@@ -4,7 +4,7 @@
 ![Lazygit](https://img.shields.io/badge/Lazygit-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![Gitflow](https://img.shields.io/badge/Gitflow-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
-# Table of Contents
+# Table des Matières
 
 - [English Documentation](#english-documentation)
   - [Introduction](#introduction)
@@ -13,6 +13,7 @@
     - [Product Management](#product-management)
     - [Order Management](#order-management)
   - [MERISE Acronym](#merise-acronym)
+  - [Physical Data Model (PDM)](#physical-data-model-pdm)
   - [Roles and Permissions (RBAC)](#roles-and-permissions-rbac)
   - [Installation](#installation)
     - [Prerequisites](#prerequisites)
@@ -30,6 +31,7 @@
     - [Gestion des Produits](#gestion-des-produits)
     - [Gestion des Commandes](#gestion-des-commandes)
   - [Acronyme MERISE](#acronyme-merise)
+  - [Modèle Physique des Données (MPD)](#modèle-physique-des-données-mpd)
   - [Rôles et Permissions (RBAC)](#rôles-et-permissions-rbac)
   - [Installation](#installation-1)
     - [Prérequis](#prérequis)
