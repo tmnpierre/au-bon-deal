@@ -10,41 +10,41 @@
 
 # 📘 Table of Contents / Table des Matières
 
-## 1. 🌟 [Introduction](#introduction)
+## 1. 🌟 Introduction
    - Overview of "AuBonDeal" Database / Aperçu de la base de données "AuBonDeal"
    - Purpose and Scope of the Documentation / Objectifs et portée de la documentation
 
-## 2. 📋 [Management Rules / Règles de Gestion](#règles-de-gestion)
-   -  👤 [User Management / Gestion des Utilisateurs](#gestion-des-utilisateurs)
-   -  📦 [Product Management / Gestion des Produits](#gestion-des-produits)
-   -  📝 [Order Management / Gestion des Commandes](#gestion-des-commandes)
+## 2. 📋 Management Rules / Règles de Gestion
+   -  👤 User Management / Gestion des Utilisateurs
+   -  📦 Product Management / Gestion des Produits
+   -  📝 Order Management / Gestion des Commandes
 
-## 3. 🧠 [MERISE Acronym / Acronyme MERISE](#acronyme-merise)
+## 3. 🧠 MERISE Acronym / Acronyme MERISE
    - Introduction and Application in the Project / Présentation et application dans le projet
 
-## 4. 💾 [Physical Data Model (PDM) / Modèle Physique des Données (MPD)](#modèle-physique-des-données-mpd)
-   -  🧑‍💼 [Table: `users`/`utilisateurs`](#table--users-utilisateurs)
-   -  📦 [Table: `products`/`produits`](#table--products-produits)
-   -  📄 [Table: `orders`/`commandes`](#table--orders-commandes)
-   -  📋 [Table: `order_items`/`articles_de_commande`](#table--order_items-articles_de_commande)
+## 4. 💾 Physical Data Model (PDM) / Modèle Physique des Données (MPD)
+   -  🧑‍💼 Table: `users`/`utilisateurs`
+   -  📦 Table: `products`/`produits`
+   -  📄 Table: `orders`/`commandes`
+   -  📋 Table: `order_items`/`articles_de_commande`
 
-## 5. 🔐 [Roles and Permissions (RBAC) / Rôles et Permissions (RBAC)](#rôles-et-permissions-rbac)
+## 5. 🔐 Roles and Permissions (RBAC) / Rôles et Permissions (RBAC)
    - Role Definitions and Permission Management / Définition des rôles et gestion des permissions
 
-## 6. 📊 [Audits and Activity Logs / Audits et Journaux d'Activité](#audits-et-journaux-dactivité)
+## 6. 📊 Audits and Activity Logs / Audits et Journaux d'Activité
    - Implementation of Audits and Monitoring of Logs / Mise en place des audits et suivi des journaux
 
-## 7. ⚙️ [Installation](#installation)
-   -  📝 [Prerequisites / Prérequis](#prérequis)
-   -  🚀 [Installation Steps / Étapes d'Installation](#étapes-dinstallation)
+## 7. ⚙️ Installation
+   -  📝 Prerequisites / Prérequis
+   -  🚀 Installation Steps / Étapes d'Installation
 
-## 8. ⚙️ [Configuration](#configuration)
-   - 🔒 [Row-Level Security (RLS) / Sécurité au Niveau des Lignes (RLS)](#sécurité-au-niveau-des-lignes-rls)
+## 8. ⚙️ Configuration
+   - 🔒 Row-Level Security (RLS) / Sécurité au Niveau des Lignes (RLS)
 
-## 9. 🛠️ [Usage / Utilisation](#utilisation)
+## 9. 🛠️ Usage / Utilisation
    - Usage Guide and Best Practices / Guide d'utilisation et meilleures pratiques
 
-## 10. 🏁 [Conclusion](#conclusion)
+## 10. 🏁 Conclusion
    - Summary and Next Steps / Résumé et étapes suivantes
 
 # "AuBonDeal" Database Documentation
