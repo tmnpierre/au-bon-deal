@@ -8,48 +8,44 @@
   <img src="images/logo.png" alt="AuBonDeal Logo" width="200">
 </p>
 
-# 📘 Table des Matières
+# 📘 Table of Contents / Table des Matières
 
-1. 🌟 [Introduction](#introduction)
-2. 📋 [Règles de Gestion](#règles-de-gestion)
-   - 2.1. 👤 [Gestion des Utilisateurs](#gestion-des-utilisateurs)
-   - 2.2. 📦 [Gestion des Produits](#gestion-des-produits)
-   - 2.3. 📝 [Gestion des Commandes](#gestion-des-commandes)
-3. 🧠 [Acronyme MERISE](#acronyme-merise)
-4. 💾 [Modèle Physique des Données (MPD)](#modèle-physique-des-données-mpd)
-   - 4.1. 🧑‍💼 [Table : `users`](#table--users)
-   - 4.2. 📦 [Table : `products`](#table--products)
-   - 4.3. 📄 [Table : `orders`](#table--orders)
-   - 4.4. 📋 [Table : `order_items`](#table--order_items)
-5. 🔐 [Rôles et Permissions (RBAC)](#rôles-et-permissions-rbac)
-6. 📊 [Audits et Logs d'Activité](#audits-et-logs-dactivité)
-7. ⚙️ [Installation](#installation)
-   - 7.1. 📝 [Prérequis](#prérequis)
-   - 7.2. 🚀 [Étapes d'Installation](#étapes-dinstallation)
-8. ⚙️ [Configuration](#configuration)
-   - 8.1. 🔒 [Sécurité au Niveau des Lignes (RLS)](#sécurité-au-niveau-des-lignes-rls)
-9. 🛠️ [Utilisation](#utilisation)
-10. 🏁 [Conclusion](#conclusion)
-11. 🌟 [Introduction](#introduction)
-12. 📋 [Règles de Gestion](#règles-de-gestion)
-   - 12.1. 👤 [Gestion des Utilisateurs](#gestion-des-utilisateurs)
-   - 12.2. 📦 [Gestion des Produits](#gestion-des-produits)
-   - 12.3. 📝 [Gestion des Commandes](#gestion-des-commandes)
-13. 🧠 [Acronyme MERISE](#acronyme-merise)
-14. 💾 [Modèle Physique des Données (MPD)](#modèle-physique-des-données-mpd)
-   - 14.1. 🧑‍💼 [Table : `utilisateurs`](#table--utilisateurs)
-   - 14.2. 📦 [Table : `produits`](#table--produits)
-   - 14.3. 📄 [Table : `commandes`](#table--commandes)
-   - 14.4. 📋 [Table : `articles_de_commande`](#table--articles_de_commande)
-15. 🔐 [Rôles et Permissions (RBAC)](#rôles-et-permissions-rbac)
-16. 📊 [Audits et Journaux d'Activité](#audits-et-journaux-dactivité)
-17. ⚙️ [Installation](#installation)
-   - 17.1. 📝 [Prérequis](#prérequis)
-   - 17.2. 🚀 [Étapes d'Installation](#étapes-dinstallation)
-18. ⚙️ [Configuration](#configuration)
-   - 18.1. 🔒 [Sécurité au Niveau des Lignes (RLS)](#sécurité-au-niveau-des-lignes-rls)
-19. 🛠️ [Utilisation](#utilisation)
-20. 🏁 [Conclusion](#conclusion)
+## 1. 🌟 [Introduction](#introduction)
+   - Overview of "AuBonDeal" Database / Aperçu de la base de données "AuBonDeal"
+   - Purpose and Scope of the Documentation / Objectifs et portée de la documentation
+
+## 2. 📋 [Management Rules / Règles de Gestion](#règles-de-gestion)
+   -  👤 [User Management / Gestion des Utilisateurs](#gestion-des-utilisateurs)
+   -  📦 [Product Management / Gestion des Produits](#gestion-des-produits)
+   -  📝 [Order Management / Gestion des Commandes](#gestion-des-commandes)
+
+## 3. 🧠 [MERISE Acronym / Acronyme MERISE](#acronyme-merise)
+   - Introduction and Application in the Project / Présentation et application dans le projet
+
+## 4. 💾 [Physical Data Model (PDM) / Modèle Physique des Données (MPD)](#modèle-physique-des-données-mpd)
+   -  🧑‍💼 [Table: `users`/`utilisateurs`](#table--users-utilisateurs)
+   -  📦 [Table: `products`/`produits`](#table--products-produits)
+   -  📄 [Table: `orders`/`commandes`](#table--orders-commandes)
+   -  📋 [Table: `order_items`/`articles_de_commande`](#table--order_items-articles_de_commande)
+
+## 5. 🔐 [Roles and Permissions (RBAC) / Rôles et Permissions (RBAC)](#rôles-et-permissions-rbac)
+   - Role Definitions and Permission Management / Définition des rôles et gestion des permissions
+
+## 6. 📊 [Audits and Activity Logs / Audits et Journaux d'Activité](#audits-et-journaux-dactivité)
+   - Implementation of Audits and Monitoring of Logs / Mise en place des audits et suivi des journaux
+
+## 7. ⚙️ [Installation](#installation)
+   -  📝 [Prerequisites / Prérequis](#prérequis)
+   -  🚀 [Installation Steps / Étapes d'Installation](#étapes-dinstallation)
+
+## 8. ⚙️ [Configuration](#configuration)
+   - 🔒 [Row-Level Security (RLS) / Sécurité au Niveau des Lignes (RLS)](#sécurité-au-niveau-des-lignes-rls)
+
+## 9. 🛠️ [Usage / Utilisation](#utilisation)
+   - Usage Guide and Best Practices / Guide d'utilisation et meilleures pratiques
+
+## 10. 🏁 [Conclusion](#conclusion)
+   - Summary and Next Steps / Résumé et étapes suivantes
 
 # "AuBonDeal" Database Documentation
 
