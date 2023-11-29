@@ -8,39 +8,35 @@
   <img src="images/logo.png" alt="AuBonDeal Logo" width="200">
 </p>
 
-# Documentation de la Base de Données "AuBonDeal"
-
 ## 🌟 Introduction
 
-La base de données "AuBonDeal" est un composant essentiel de l'application de commerce électronique "AuBonDeal". Cette base de données stocke toutes les informations nécessaires au fonctionnement de l'application, y compris les données des utilisateurs, des produits et des commandes. Cette documentation vous guidera dans l'installation, la configuration et l'utilisation de cette base de données.
+The "AuBonDeal" database is an essential component of the "AuBonDeal" e-commerce application. It stores all the necessary information for the application to function, including user, product, and order data. This documentation will guide you through the installation, configuration, and use of this database.
 
-## 🧠 Acronyme MERISE
+## 🧠 MERISE Acronym
 
-**MERISE** est une approche structurée pour la conception de bases de données et de systèmes, largement utilisée dans le développement de systèmes d'information. Il signifie "Méthodologie d'Étude et de Réalisation Informatique pour les Systèmes d'Entreprise". Cette approche est divisée en plusieurs étapes clés, telles que le Modèle Conceptuel des Données (MCD), le Modèle Logique des Données (MLD), le Modèle Physique des Données (MPD), la Modélisation des Processus Opérationnels et la Modélisation Dynamique.
+The **MERISE** approach is a structured methodology widely used in the development of information systems. It stands for "Methodology for the Study and Development of Information Systems for Businesses." MERISE is divided into several key stages, including the Conceptual Data Model (CDM), Logical Data Model (LDM), Physical Data Model (PDM), Operational Process Modeling, and Dynamic Modeling.
 
 ## ⚙️ Installation
 
-### 📝 Prérequis
-Assurez-vous que les éléments suivants sont installés :
-- PostgreSQL.
-- Les extensions `pgcrypto` et `uuid-ossp` sont activées dans PostgreSQL.
+### 📝 Prerequisites
 
-### 🚀 Étapes d'Installation
+Before you begin, ensure that the following elements are in place:
 
-1. **Créer la Base de Données** : Utilisez la commande `createdb` pour créer une nouvelle base de données "AuBonDeal".
-2. **Importer la Structure de la Base de Données** : Utilisez `pgcli` ou un outil similaire pour importer le fichier SQL dans la base de données.
+- PostgreSQL is installed.
+- The `pgcrypto` and `uuid-ossp` extensions are enabled in PostgreSQL.
+
+### 🚀 Installation Steps
+
+1. **Create the Database**: Use the `createdb` command to create a new database named "AuBonDeal."
+2. **Import the Database Structure**: Use `pgcli` or a similar tool to import the SQL file into the database.
 
 ## ⚙️ Configuration
 
-### 🔒 Sécurité au Niveau des Lignes (RLS)
+### 🔒 Row-Level Security (RLS)
 
-RLS est activé sur la table `commandes` pour garantir que les utilisateurs n'accèdent qu'à leurs propres commandes. Des politiques spécifiques telles que `user_view_own_orders` et `user_modify_own_orders` sont mises en œuvre pour appliquer cette politique.
+Row-Level Security (RLS) is enabled on the `orders` table to ensure that users only access their own orders. Specific policies such as `user_view_own_orders` and `user_modify_own_orders` are implemented to enforce this policy.
 
-## 🛠️ Utilisation
+## 🛠️ Usage
 
-- **Accès aux Données** : Les utilisateurs peuvent gérer leurs données en fonction de leurs rôles.
-- 🔑 **Sécurité des Mots de Passe** : Les mots de passe sont hachés pour des raisons de sécurité.
-
-## 🏁 Conclusion
-
-La base de données "AuBonDeal" est configurée pour l'application de commerce électronique associée. Suivez ces directives pour une gestion efficace des utilisateurs, des produits et des commandes.
+- **Data Access**: Users can manage their data based on their roles.
+- 🔑 **Password Security**: Passwords are hashed for security purposes.
